@@ -1,0 +1,52 @@
+# Django
+*.log
+*.pot
+*.pyc
+__pycache__/
+db.sqlite3
+media/
+
+# Python
+*.pyo
+*.pyc
+*.pyd
+*.so
+*.egg-info/
+*.egg
+*.pyc
+dist/
+build/
+*.spec
+
+# Poetry
+.env
+.poetry-env
+.pyenv
+/.venv
+venv/
+*.lock
+
+# Directories
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.cache
+.coverage
+htmlcov/
+.parcel-cache
+
+# Miscellaneous
+*.swp
+*.swo
+*.DS_Store
+*.bak
+*.cache
+*.log
+*.tmp
+*.pyc
+*~
+/.vscode
+*.sublime-project
+*.sublime-workspace
+*.code-workspace
