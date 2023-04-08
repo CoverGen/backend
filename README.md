@@ -36,7 +36,7 @@ poetry install
 4. Apply the database migrations:
 
 ```
-poetry run python manage.py migrate --settings=ticket_app.settings.development
+poetry run python manage.py migrate --settings=backend.settings.development
 ```
 
 5. (Optional) Load initial data or fixtures, if necessary:
