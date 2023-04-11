@@ -56,7 +56,7 @@ Follow the instructions below to set up the local development environment and ru
 1. Clone the repository and enter into the project's root folder:
 
     ```
-    git clone https://gitlab.com/covergen/backend.git && cd backend
+    git clone https://github.com/CoverGen/backend.git && cd backend
     ```
 
 2. Install Poetry, if you haven't already:
@@ -84,16 +84,16 @@ Follow the instructions below to set up the local development environment and ru
     echo "# .env\nDJANGO_SETTINGS_MODULE=backend.settings.development" > .env
     ```
 
-6. Generate the corresponding migrations of the models:
+6. Generate the corresponding migrations of the models, in the `ticket_app` app:
 
     ```
-    python manage.py makemigrations
+    python manage.py makemigrations ticket_app
     ```
 
 7. Apply the database migrations:
 
     ```
-    python manage.py migrate
+    python manage.py migrate ticket_app
     ```
 
 8. **(Optional)** Load initial data or fixtures, if necessary:
