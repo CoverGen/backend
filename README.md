@@ -9,44 +9,62 @@ Follow the instructions below to set up the local development environment and ru
 ### Prerequisites
 
 - Python 3.10
-- Poetry (dependency manager)(It will be installed later)
+- Poetry (dependency manager, **it will be installed later**)
 
 ### Installation
 
-1. Clone the repository:
+1. Clone the repository and enter into the project's root folder:
 
-```
-git clone https://gitlab.com/covergen/backend.git
-cd ticket_app
-```
+    ```
+    git clone https://gitlab.com/covergen/backend.git && cd backend
+    ```
 
 2. Install Poetry, if you haven't already:
 
-```
-curl -sSL https://install.python-poetry.org | python3 -
-```
-For other installation methods, refer to the official documentation.
+    ```
+    curl -sSL https://install.python-poetry.org | python3 -
+    ```
+    For other installation methods, refer to the official documentation.
 
 3. Install the project dependencies and set up the virtual environment:
 
-```
-poetry install
-```
+    ```
+    poetry install
+    ```
 
-4. Apply the database migrations:
+4. Enter into Poetry's shell to run all following commands inside the project's virtual environment:
 
-```
-poetry run python manage.py migrate --settings=backend.settings.development
-```
+    ```
+    poetry shell
+    ```
 
-5. (Optional) Load initial data or fixtures, if necessary:
+5. Set the settings module file location into the environment variable in a `.env` file:
 
-```
-poetry run python manage.py loaddata fixture_file.json --settings=ticket_app.settings.development
-```
-Replace fixture_file.json with the name of your fixture file.
+    ```
+    echo "# .env\nDJANGO_SETTINGS_MODULE=backend.settings.development" > .env
+    ```
 
-### Running the Development Server
+6. Generate the corresponding migrations of the models:
+
+    ```
+    python manage.py makemigrations
+    ```
+
+7. Apply the database migrations:
+
+    ```
+    python manage.py migrate
+    ```
+
+8. **(Optional)** Load initial data or fixtures, if necessary:
+
+    ```
+    python manage.py loaddata fixture_file.json
+    ```
+    Replace `fixture_file.json` with the name of your fixture file.
+
+
+## Running the Development Server
 
 To start the development server, run:
 

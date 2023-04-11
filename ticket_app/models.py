@@ -58,7 +58,7 @@ class Ticket(models.Model):
     reference_name = models.CharField(max_length = 32)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
-    date_generated = models.DateTimeField.auto_now()
+    date_generated = models.DateTimeField(auto_now = True)
     ticket_numer = models.IntegerField()
     n_assistants = models.SmallIntegerField(default = 1)
     reusable = models.BooleanField(default = False)
