@@ -10,28 +10,32 @@ Follow the instructions below to set up the local development environment and ru
 
 - Python 3.10
 - Poetry (dependency manager, **it will be installed later**)
-- PostgreSQL (Configuration steps below for unix like systems).
+- PostgreSQL 15 (Configuration steps below for unix like systems).
 
 ## Setting up the Database
 
 1. Install PostgreSQL on your local machine (Reffer to the [official download page](https://www.postgresql.org/download/) and/or the documentation for your specific OS).
 
 
-    For linux, make sure to also install `python3-dev, libpq-dev, postgresql-contrib` (for Ubuntu) or their equivalents on your distro (not needed for Arch Linux).
+    For linux make sure to:
+    - Also install `python3-dev, libpq-dev, postgresql-contrib` (for Ubuntu) or their equivalents on your distro (not needed for Arch Linux).
+    - The server is properly running.
+    - The default `postgres` user is properly configured (no password for this user is needed).
+
 
 2. Create the Database.
 
-    From your console, log in as the default `postgres` user into `psql` prompt:
+    From your console, log in as the default `postgres` user:
     ```
-    sudo -ui postgres psql
+    sudo -iu postgres
     ```
-    Once you are in the `psql` prompt, create the database:
+    Then create the database and enter into `psql` prompt connected to the database created:
     ```
-    CREATE DATABASE CoverGen;
+    createdb covergen && psql covergen
     ```
 3. Configure the user that will connect to the database:
     ```
-    CREATE USER covgen_admin WITH PASSWORD 'covgen_admin';
+    CREATE USER covgen_admin WITH PASSWORD 'covgen_admin' LOGIN;
     ```
 
     Modify some parameters for the user:
@@ -41,14 +45,18 @@ Follow the instructions below to set up the local development environment and ru
     ALTER ROLE covgen_admin SET timezone TO 'UTC';
     ```
 
-    Give this user access rights to the database:
+    Give this user rights to the `covergen` database schema:
     ```
-    GRANT ALL PRIVILEGES ON DATABASE "CoverGen" TO covgen_admin;
+    GRANT ALL ON SCHEMA public TO covgen_admin;
     ```
 
     Exit `psql` prompt:
     ```
     \q
+    ```
+    Exit `postgres` session:
+    ```
+    exit
     ```
 
 ## Setting up the Project
@@ -59,44 +67,51 @@ Follow the instructions below to set up the local development environment and ru
     git clone https://github.com/CoverGen/backend.git && cd backend
     ```
 
-2. Install Poetry, if you haven't already:
+2. Checkout and trank `develop` brach:
+    ```
+    git checkout --track origin/develop
+    ```
+
+3. Install Poetry, if you haven't already:
 
     ```
     curl -sSL https://install.python-poetry.org | python3 -
     ```
     For other installation methods, refer to the official documentation.
 
-3. Install the project dependencies and set up the virtual environment:
+4. Install the project dependencies and set up the virtual environment:
 
     ```
     poetry install
     ```
 
-4. Enter into Poetry's shell to run all following commands inside the project's virtual environment:
+5. Enter into Poetry's shell to run all following commands inside the project's virtual environment:
 
     ```
     poetry shell
     ```
 
-5. Set the settings module file location into the environment variable in a `.env` file:
+6. Set the settings module file location into the environment variable in a `.env` file:
 
     ```
-    echo "# .env\nDJANGO_SETTINGS_MODULE=backend.settings.development" > .env
+    printf "%b" "# .env\nDJANGO_SETTINGS_MODULE=backend.settings.development\n" > .env
     ```
 
-6. Generate the corresponding migrations of the models, in the `ticket_app` app:
+7. (**Optional, run only when migrations were not provided, otherwise skip this step**)
+
+    Generate the corresponding migrations of the models, in the `ticket_app` app:
 
     ```
     python manage.py makemigrations ticket_app
     ```
 
-7. Apply the database migrations:
+8. Apply the database migrations:
 
     ```
     python manage.py migrate ticket_app
     ```
 
-8. **(Optional)** Load initial data or fixtures, if necessary:
+9. **(Optional)** Load initial data or fixtures, if necessary:
 
     ```
     python manage.py loaddata fixture_file.json
@@ -116,7 +131,9 @@ This command will start the Django development server with development settings.
 
 ## Linting and Formatting
 
-This project uses Flake8 for linting and Black for code formatting. To lint the code, run:
+This project uses Flake8 for linting and Black for code formatting.
+
+To lint the code, run:
 
 ```
 make lint
