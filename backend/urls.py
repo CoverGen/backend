@@ -15,11 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from ticket_app.use_cases.accounts import views as accounts
+from ticket_app.views import accounts
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     # accounts paths
-    path("register/", accounts.register),
-    path("login/", accounts.login),
+    path("register/", accounts.register_user),
+    path("login/", accounts.login_user),
 ]
