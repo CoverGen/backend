@@ -25,7 +25,7 @@ def register_user(request):
             new_planner = Planner(id_planner=user)
             new_planner.save()
             return Response(
-                {"message": f"Email {email} registered.", "data": new_user.data},
+                {"message": f"Email {email} registered."},
                 status=status.HTTP_201_CREATED,
             )
         return Response(
