@@ -16,7 +16,6 @@ from ticket_app.serializers import UserRegisterSerializer, UserLoginSerializer
 # Register user
 def register_user(request):
     if request.method == "POST":
-        print(request.data)
         new_user = UserRegisterSerializer(data=request.data)
         if new_user.is_valid():
             new_user.save()
@@ -60,7 +59,7 @@ def login_user(request):
 
         return Response(
             {"message": "There are some errors.", "errors": user_request.errors},
-            status=status.HTTP_400_BAD_REQUEST,
+            status=status.HTTP_401_UNAUTHORIZED,
         )
     else:
         return Response({"message": "Login endpoint."}, status=status.HTTP_200_OK)

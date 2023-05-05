@@ -134,6 +134,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # CORS
 # https://www.django-rest-framework.org/topics/ajax-csrf-cors/
 
-# CORS_ALLOWED_ORIGINS = ["http://localhost:4000"]
+CORS_ALLOWED_ORIGINS = ["http://localhost:5173"]
 # CSRF_TRUSTED_ORIGINS = []
-CORS_ALLOW_ALL_ORIGINS: True
+# CORS_ALLOW_ALL_ORIGINS = False
