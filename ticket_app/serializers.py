@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import User
+from .models import User, Event
 import re
 
 # Check if data contains numbers
@@ -92,3 +92,9 @@ class UserLoginSerializer(serializers.ModelSerializer):
         else:
             password = value
             return password
+
+
+class EventSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Event
+        fields = "__all__"

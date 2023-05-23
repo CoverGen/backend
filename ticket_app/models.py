@@ -35,10 +35,13 @@ class Assistant(models.Model):
 class Event(models.Model):
     name = models.CharField(max_length=128)
     location = models.CharField(max_length=128)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField()
+    start_date = models.DateTimeField(null=True)
+    id_planner = models.ForeignKey(Planner, on_delete=models.CASCADE)
+    end_date = models.DateTimeField(null=True)
     duration = models.TimeField()
     details = models.TextField(help_text="What is your event aboout?")
+
+    # TODO Create method to check if start_date and end_date is setted
 
 
 class Event_Moderators(models.Model):
